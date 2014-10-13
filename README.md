@@ -3,7 +3,12 @@ MvGather
 
 MvGather中文名影视集结号，是个在线视频客户端，同时也是本地视频播放器。
 基于Qt5.3及QtAV开发,同时使用了射手的开放API，使得它具有字幕匹配的功能。
+主要用于解决ubuntu上中文视频观看问题。
 
+#
+下载：
+ubuntu:
+deb下载地址：http://mvgather.com/?content/read-10.html
 
 # For Developers
 #### Requirements
