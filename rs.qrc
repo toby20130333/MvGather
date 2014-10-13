@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/icon.png</file>
+        <file>images/player.png</file>
+        <file>images/load.jpg</file>
+        <file>images/list.png</file>
+        <file>images/share.png</file>
+        <file>liteBlueTheme.qss</file>
+        <file>darkGrey.qss</file>
+        <file>images/download.ico</file>
+        <file>images/downloadManage.png</file>
+        <file>images/tipBusy.png</file>
+        <file>images/tipBackgound.png</file>
+        <file>images/delete.png</file>
+    </qresource>
+</RCC>

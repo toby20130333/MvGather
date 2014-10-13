@@ -1,0 +1,147 @@
+#include "browsewidget.h"//
+#include <QLabel>
+BrowseWidget::BrowseWidget(QWidget *parent) :
+    QWidget(parent)
+{
+    initUi();
+}
+
+void BrowseWidget::initUi()
+{
+    showWidget = new ListShowWidget(this);
+    navPanelTWidget=new QWidget(this);
+    navPanelBWidget=new QWidget(this);
+    mainGLayout = new QGridLayout(this);
+    navGLayout = new QGridLayout(this);
+    navSLayout = new QStackedLayout(this);
+    navPanelTWidget->setLayout(navGLayout);
+    navPanelBWidget->setLayout(navSLayout);
+    mainGLayout->addWidget(showWidget,0,0,10,10);
+    mainGLayout->addWidget(navPanelTWidget,0,10,1,2);
+    mainGLayout->addWidget(navPanelBWidget,1,10,9,2);
+
+    moGLayout = new QGridLayout(this);
+    tvGLayout = new QGridLayout(this);
+    moPanelWidget = new QWidget(this);
+    tvPanelWidget = new QWidget(this);
+    moPanelWidget->setLayout(moGLayout);
+    tvPanelWidget->setLayout(tvGLayout);
+    navSLayout->addWidget(moPanelWidget);
+    navSLayout->addWidget(tvPanelWidget);
+    //大类
+    QToolButton *bt0 = new QToolButton;
+    QToolButton *bt1 = new QToolButton;
+    QToolButton *bt2 = new QToolButton;
+    QToolButton *bt3= new QToolButton;
+    QToolButton *bt4 = new QToolButton;
+    bt0->setCheckable(true);
+    bt0->setChecked(true);
+    bt1->setCheckable(true);
+    bt2->setCheckable(true);
+    bt3->setCheckable(true);
+    bt4->setCheckable(true);
+    bt0->setText("电影");
+    bt1->setText("电视剧");
+    bt2->setText("动漫");
+    bt3->setText("综艺");
+    bt4->setText("微电影");
+    navGLayout->addWidget(bt0,0,0,1,1);
+    navGLayout->addWidget(bt1,0,1,1,1);
+    navGLayout->addWidget(bt2,0,2,1,1);
+    navGLayout->addWidget(bt3,0,3,1,1);
+    navGLayout->addWidget(bt4,0,4,1,1);
+    navBtnGroup = new QButtonGroup;
+    navBtnGroup->setExclusive(true);
+    navBtnGroup->addButton(bt0,0);
+    navBtnGroup->addButton(bt1,1);
+    navBtnGroup->addButton(bt2,2);
+    navBtnGroup->addButton(bt3,3);
+    navBtnGroup->addButton(bt4,4);
+    connect(navBtnGroup,SIGNAL(buttonClicked(int)),navSLayout,SLOT(setCurrentIndex(int)));
+    //电影大类下的"类型"
+    moCatGroup = new QButtonGroup;
+    moCatGroup->setExclusive(true);
+    QLabel *moCatLbl = new QLabel("类型:");
+    moGLayout->addWidget(moCatLbl);
+    int row=1;
+    int column=0;
+    QString str="全部#剧情#爱情#喜剧#动作#恐怖#惊悚#犯罪#悬疑#科幻#伦理#战争#动画#文艺#历史#传记#奇幻#古装#歌舞#纪录#家庭#冒险#灾难#武侠#青春#其他";
+    QStringList strList=str.split("#");
+    foreach (QString str_temp, strList) {
+        QToolButton *moCatBt = new QToolButton;
+        moCatBt->setCheckable(true);
+        moCatBt->setText(str_temp);
+        moGLayout->addWidget(moCatBt,row,column,1,1);
+        moCatGroup->addButton(moCatBt);
+        if(row==1&&column==0)
+        {
+            moCatBt->setChecked(true);
+        }
+        if(column>4)
+        {
+            column=0;
+            row++;
+        }else
+        {
+            column++;
+        }
+    }
+//电影大类下的"地区"
+    moAreaGroup = new QButtonGroup;
+    moAreaGroup->setExclusive(true);
+    QLabel *moareaLbl = new QLabel("地区:");
+    moGLayout->addWidget(moareaLbl);
+    row= moGLayout->rowCount()+1;
+    column=0;
+    str="全部#美国#大陆#香港#韩国#日本#法国#英国#德国#台湾#泰国#印度#其他";
+    strList=str.split("#");
+    foreach (QString str_temp, strList) {
+        QToolButton *moareaBt = new QToolButton;
+        moareaBt->setCheckable(true);
+        moareaBt->setText(str_temp);
+        moGLayout->addWidget(moareaBt,row,column,1,1);
+        moAreaGroup->addButton(moareaBt);
+        if(row==1&&column==0)
+        {
+            moareaBt->setChecked(true);
+        }
+        if(column>4)
+        {
+            column=0;
+            row++;
+        }else
+        {
+            column++;
+        }
+    }
+    //电视剧大类下的"类型"
+    tvCatGroup = new QButtonGroup;
+    tvCatGroup->setExclusive(true);
+    QLabel *tvCatLbl = new QLabel("类型:");
+    tvGLayout->addWidget(tvCatLbl);
+    row=1;
+    column=0;
+    str="全部#喜剧";
+    strList=str.split("#");
+    foreach (QString str_temp, strList) {
+        QToolButton *tvCatBt = new QToolButton;
+        tvCatBt->setCheckable(true);
+        tvCatBt->setText(str_temp);
+        tvGLayout->addWidget(tvCatBt,row,column,1,1);
+        tvCatGroup->addButton(tvCatBt);
+        if(row==1&&column==0)
+        {
+            tvCatBt->setChecked(true);
+        }
+        if(column>4)
+        {
+            column=0;
+            row++;
+        }else
+        {
+            column++;
+        }
+    }
+
+    setLayout(mainGLayout);
+}
